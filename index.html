@@ -82,7 +82,7 @@
                 <a href="#contact" class="hover:text-brand-600 transition">Contact & Location</a>
             </nav>
             <div class="flex items-center space-x-3">
-                <button onclick="openAdminModal()" class="flex items-center space-x-2 bg-brand-600 hover:bg-brand-700 text-white px-4 py-2.5 rounded-xl font-semibold shadow-md shadow-brand-500/20 transition transform active:scale-95 text-sm">
+                <button onclick="promptAdminPassword()" class="flex items-center space-x-2 bg-brand-600 hover:bg-brand-700 text-white px-4 py-2.5 rounded-xl font-semibold shadow-md shadow-brand-500/20 transition transform active:scale-95 text-sm">
                     <i class="fa-solid fa-gauge-high"></i>
                     <span>Manage Tables</span>
                 </button>
@@ -108,7 +108,7 @@
                     <a href="#catalog" class="bg-white text-brand-900 font-bold px-8 py-4 rounded-xl shadow-xl hover:bg-blue-50 transition text-center">
                         Explore Collection
                     </a>
-                    <button onclick="openAdminModal()" class="border-2 border-white/40 hover:border-white text-white font-bold px-8 py-4 rounded-xl backdrop-blur-sm transition text-center">
+                    <button onclick="promptAdminPassword()" class="border-2 border-white/40 hover:border-white text-white font-bold px-8 py-4 rounded-xl backdrop-blur-sm transition text-center">
                         Add New Table
                     </button>
                 </div>
@@ -156,7 +156,7 @@
                 </div>
                 <h3 class="text-xl font-bold text-slate-700">No tables found in this category</h3>
                 <p class="text-slate-500 mt-1 max-w-sm mx-auto">You can add new custom tables and furniture products instantly using the management panel.</p>
-                <button onclick="openAdminModal()" class="mt-6 bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:bg-brand-700 transition">
+                <button onclick="promptAdminPassword()" class="mt-6 bg-brand-600 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:bg-brand-700 transition">
                     <i class="fa-solid fa-plus mr-2"></i> Add Table Now
                 </button>
             </div>
@@ -219,7 +219,7 @@
                     <ul class="space-y-2 text-sm text-blue-100">
                         <li><a href="#catalog" class="hover:text-white transition">Catalog & Tables</a></li>
                         <li><a href="#about" class="hover:text-white transition">About Wasif Engineering</a></li>
-                        <li><button onclick="openAdminModal()" class="hover:text-white transition text-left">Management Dashboard</button></li>
+                        <li><button onclick="promptAdminPassword()" class="hover:text-white transition text-left">Management Dashboard</button></li>
                     </ul>
                 </div>
                 <div>
@@ -399,7 +399,6 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             renderCatalog();
-            renderAdminTable();
         });
 
         function saveProducts() {
@@ -467,6 +466,17 @@
             const message = `Hello WRA Interiors, I am interested in inquiring about your product: "${productName}". Please share pricing and customization details.`;
             const url = `https://wa.me/923212795150?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
+        }
+
+        function promptAdminPassword() {
+            const pass = prompt("Enter Admin Password to access Management Dashboard:");
+            if (pass === null) return;
+            // Default password is set to 'wra123'. You can change 'wra123' here to anything you want.
+            if (pass === "wra123") {
+                openAdminModal();
+            } else {
+                alert("Incorrect Password! Access Denied.");
+            }
         }
 
         function openAdminModal() {
@@ -560,7 +570,7 @@
             document.getElementById('editIndex').value = "";
             document.getElementById('formTitle').innerHTML = `<i class="fa-solid fa-plus-circle text-brand-600 mr-2"></i> Add New Table / Product`;
             document.getElementById('saveBtn').innerHTML = `<i class="fa-solid fa-check mr-2"></i> Save Table`;
-            document.getElementById('cancelEditBtn').classList.add('hidden');
+            document.getElementById('cancelEdit`lBtn').classList.add('hidden');
         }
 
         function deleteProduct(index) {
